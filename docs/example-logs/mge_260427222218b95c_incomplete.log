@@ -1,0 +1,36 @@
+L 04/27/2026 - 22:22:18: World triggered "meta_data" (matchid "260427222218b95c") (map "mge_triumph_beta7_rc1") (arena "Badlands Middle 3 [1v1 MGE]") (gamemode "mge") (fraglimit "0")
+L 04/27/2026 - 22:22:18: "RocketSoldier<61><[U:1:900000001]><Red>" changed role to "soldier"
+L 04/27/2026 - 22:22:18: "BlueDemo<60><[U:1:900000002]><Blue>" changed role to "scout"
+L 04/27/2026 - 22:22:26: "BlueDemo<60><[U:1:900000002]><Blue>" triggered "shot_fired" (weapon "scattergun")
+L 04/27/2026 - 22:22:26: "BlueDemo<60><[U:1:900000002]><Blue>" triggered "shot_hit" (weapon "scattergun")
+L 04/27/2026 - 22:22:26: "BlueDemo<60><[U:1:900000002]><Blue>" triggered "damage" against "RocketSoldier<61><[U:1:900000001]><Red>" (damage "57") (weapon "scattergun")
+L 04/27/2026 - 22:22:26: "BlueDemo<60><[U:1:900000002]><Blue>" triggered "shot_fired" (weapon "scattergun")
+L 04/27/2026 - 22:22:26: "BlueDemo<60><[U:1:900000002]><Blue>" triggered "shot_hit" (weapon "scattergun")
+L 04/27/2026 - 22:22:26: "BlueDemo<60><[U:1:900000002]><Blue>" triggered "damage" against "RocketSoldier<61><[U:1:900000001]><Red>" (damage "99") (weapon "scattergun")
+L 04/27/2026 - 22:22:26: "RocketSoldier<61><[U:1:900000001]><Red>" joined team "Spectator"
+L 04/27/2026 - 22:22:30: "BlueDemo<60><[U:1:900000002]><Blue>" say "!add"
+L 04/27/2026 - 22:22:32: "BlueDemo<60><[U:1:900000002]><Blue>" joined team "Spectator"
+L 04/27/2026 - 22:22:32: "BlueDemo<60><[U:1:900000002]><Spectator>" joined team "Red"
+L 04/27/2026 - 22:22:32: "BlueDemo<60><[U:1:900000002]><Red>" spawned as "scout"
+L 04/27/2026 - 22:22:32: "BlueDemo<60><[U:1:900000002]><Red>" joined team "Spectator"
+L 04/27/2026 - 22:22:39: "RocketSoldier<61><[U:1:900000001]><Spectator>" joined team "Blue"
+L 04/27/2026 - 22:22:39: "RocketSoldier<61><[U:1:900000001]><Blue>" spawned as "soldier"
+L 04/27/2026 - 22:22:42: "BlueDemo<60><[U:1:900000002]><Spectator>" disconnected (reason "Disconnect by user.")
+L 04/27/2026 - 22:22:51: "BlueDemo<64><[U:1:900000002]><>" connected, address "203.0.113.10:12573"
+L 04/27/2026 - 22:22:57: "BlueDemo<64><[U:1:900000002]><Unassigned>" joined team "Spectator"
+L 04/27/2026 - 22:22:57: "BlueDemo<64><[U:1:900000002]><>" entered the game
+L 04/27/2026 - 22:23:13: "BlueDemo<64><[U:1:900000002]><Spectator>" say "gg"
+L 04/27/2026 - 22:23:16: "BlueDemo<64><[U:1:900000002]><Spectator>" joined team "Red"
+L 04/27/2026 - 22:23:16: "BlueDemo<64><[U:1:900000002]><Red>" spawned as "scout"
+L 04/27/2026 - 22:24:25: "BlueDemo<64><[U:1:900000002]><Red>" disconnected (reason "Disconnect by user.")
+L 04/27/2026 - 22:24:25: "BlueDemo<64><[U:1:900000002]><Red>" joined team "Spectator"
+L 04/27/2026 - 22:25:38: "BlueDemo<65><[U:1:900000002]><>" connected, address "203.0.113.10:12573"
+L 04/27/2026 - 22:25:45: "BlueDemo<65><[U:1:900000002]><Unassigned>" joined team "Spectator"
+L 04/27/2026 - 22:25:45: "BlueDemo<65><[U:1:900000002]><>" entered the game
+L 04/27/2026 - 22:26:05: "BlueDemo<65><[U:1:900000002]><Spectator>" say "nice shot"
+L 04/27/2026 - 22:27:30: "BlueDemo<65><[U:1:900000002]><Spectator>" say "close game"
+L 04/27/2026 - 22:27:33: "BlueDemo<65><[U:1:900000002]><Spectator>" say "!remove"
+L 04/27/2026 - 22:27:35: "BlueDemo<65><[U:1:900000002]><Spectator>" say "well played"
+L 04/27/2026 - 22:28:28: "BlueDemo<65><[U:1:900000002]><Spectator>" joined team "Red"
+L 04/27/2026 - 22:28:28: "BlueDemo<65><[U:1:900000002]><Red>" spawned as "scout"
+L 04/28/2026 - 00:00:00: World triggered "mge_match_aborted" (reason "map_change")

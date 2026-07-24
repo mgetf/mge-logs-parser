@@ -1,0 +1,187 @@
+{
+  "meta": {
+    "matchId": "newmatchend00001",
+    "map": "mge_triumph_beta7_rc1",
+    "arena": "Spire [1v1 MGE]",
+    "gamemode": "mge",
+    "fragLimit": 10,
+    "format": "1v1",
+    "startedAt": "2026-04-28T11:00:00Z",
+    "endedAt": "2026-04-28T11:02:00Z",
+    "durationSeconds": 120,
+    "aborted": false,
+    "abortReason": null
+  },
+  "players": [
+    {
+      "steamId": "[U:1:900000016]",
+      "name": "GunboatsGamer",
+      "team": "Red",
+      "startClass": "soldier",
+      "won": true,
+      "score": 10,
+      "elo": {
+        "before": 1500,
+        "after": 1516,
+        "delta": 16
+      },
+      "stats": {
+        "kills": 9,
+        "deaths": 2,
+        "damageDone": 0,
+        "damageReceived": 0,
+        "dpm": 0,
+        "shotsFired": 0,
+        "shotsHit": 0,
+        "accuracy": null,
+        "airshots": 0,
+        "headshotKills": 0,
+        "weaponBreakdown": {
+          "tf_projectile_rocket": {
+            "kills": 9,
+            "damage": 0,
+            "shotsFired": 0,
+            "shotsHit": 0
+          }
+        },
+        "medicStats": null
+      }
+    },
+    {
+      "steamId": "[U:1:900000017]",
+      "name": "CritSticky",
+      "team": "Blue",
+      "startClass": "soldier",
+      "won": false,
+      "score": 3,
+      "elo": {
+        "before": 1450,
+        "after": 1434,
+        "delta": -16
+      },
+      "stats": {
+        "kills": 2,
+        "deaths": 9,
+        "damageDone": 0,
+        "damageReceived": 0,
+        "dpm": 0,
+        "shotsFired": 0,
+        "shotsHit": 0,
+        "accuracy": null,
+        "airshots": 0,
+        "headshotKills": 0,
+        "weaponBreakdown": {
+          "tf_projectile_rocket": {
+            "kills": 2,
+            "damage": 0,
+            "shotsFired": 0,
+            "shotsHit": 0
+          }
+        },
+        "medicStats": null
+      }
+    }
+  ],
+  "events": [
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T11:00:10Z",
+      "attackerSteamId": "[U:1:900000016]",
+      "victimSteamId": "[U:1:900000017]",
+      "weapon": "tf_projectile_rocket",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T11:00:20Z",
+      "attackerSteamId": "[U:1:900000016]",
+      "victimSteamId": "[U:1:900000017]",
+      "weapon": "tf_projectile_rocket",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T11:00:30Z",
+      "attackerSteamId": "[U:1:900000017]",
+      "victimSteamId": "[U:1:900000016]",
+      "weapon": "tf_projectile_rocket",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T11:00:40Z",
+      "attackerSteamId": "[U:1:900000016]",
+      "victimSteamId": "[U:1:900000017]",
+      "weapon": "tf_projectile_rocket",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T11:00:50Z",
+      "attackerSteamId": "[U:1:900000016]",
+      "victimSteamId": "[U:1:900000017]",
+      "weapon": "tf_projectile_rocket",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T11:01:00Z",
+      "attackerSteamId": "[U:1:900000016]",
+      "victimSteamId": "[U:1:900000017]",
+      "weapon": "tf_projectile_rocket",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T11:01:10Z",
+      "attackerSteamId": "[U:1:900000017]",
+      "victimSteamId": "[U:1:900000016]",
+      "weapon": "tf_projectile_rocket",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T11:01:20Z",
+      "attackerSteamId": "[U:1:900000016]",
+      "victimSteamId": "[U:1:900000017]",
+      "weapon": "tf_projectile_rocket",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T11:01:30Z",
+      "attackerSteamId": "[U:1:900000016]",
+      "victimSteamId": "[U:1:900000017]",
+      "weapon": "tf_projectile_rocket",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T11:01:40Z",
+      "attackerSteamId": "[U:1:900000016]",
+      "victimSteamId": "[U:1:900000017]",
+      "weapon": "tf_projectile_rocket",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T11:01:50Z",
+      "attackerSteamId": "[U:1:900000016]",
+      "victimSteamId": "[U:1:900000017]",
+      "weapon": "tf_projectile_rocket",
+      "headshot": false,
+      "airshot": false
+    }
+  ],
+  "chat": []
+}

@@ -1,0 +1,15 @@
+L 04/27/2026 - 22:22:41: World triggered "meta_data" (matchid "260427222241d8f4") (map "mge_triumph_beta7_rc1") (arena "Temple Knockout 1 [1v1 AMOD]") (gamemode "mge") (fraglimit "0")
+L 04/27/2026 - 22:22:41: "ScoutMain<63><[U:1:900000003]><Red>" changed role to "soldier"
+L 04/27/2026 - 22:22:41: "PyroPlayer<57><[U:1:900000004]><Blue>" changed role to "soldier"
+L 04/27/2026 - 22:22:41: "PyroPlayer<57><[U:1:900000004]><Blue>" triggered "shot_fired" (weapon "quake_rl")
+L 04/27/2026 - 22:22:41: "PyroPlayer<57><[U:1:900000004]><Blue>" triggered "shot_hit" (weapon "quake_rl")
+L 04/27/2026 - 22:22:41: "PyroPlayer<57><[U:1:900000004]><Blue>" triggered "damage" against "ScoutMain<63><[U:1:900000003]><Red>" (damage "51") (weapon "quake_rl")
+L 04/27/2026 - 22:22:41: "ScoutMain<63><[U:1:900000003]><Red>" joined team "Spectator"
+L 04/27/2026 - 22:22:50: "PyroPlayer<57><[U:1:900000004]><Blue>" joined team "Spectator"
+L 04/27/2026 - 22:22:50: "PyroPlayer<57><[U:1:900000004]><Spectator>" joined team "Red"
+L 04/27/2026 - 22:22:50: "PyroPlayer<57><[U:1:900000004]><Red>" spawned as "soldier"
+L 04/27/2026 - 22:22:50: "PyroPlayer<57><[U:1:900000004]><Red>" joined team "Spectator"
+L 04/27/2026 - 22:23:43: "ScoutMain<63><[U:1:900000003]><Spectator>" disconnected (reason "Disconnect by user.")
+L 04/27/2026 - 22:24:59: "PyroPlayer<57><[U:1:900000004]><Spectator>" joined team "Blue"
+L 04/27/2026 - 22:24:59: "PyroPlayer<57><[U:1:900000004]><Blue>" spawned as "soldier"
+L 04/28/2026 - 00:00:00: World triggered "mge_match_aborted" (reason "map_change")

@@ -1,0 +1,12 @@
+L 04/27/2026 - 23:32:26: World triggered "meta_data" (matchid "260427233226c477") (map "mge_triumph_beta7_rc1") (arena "Granary Pro Middle [1v1 MGE]") (gamemode "mge") (fraglimit "0")
+L 04/27/2026 - 23:32:26: "MedicMain<50><[U:1:900000008]><Red>" changed role to "soldier"
+L 04/27/2026 - 23:32:26: "EngiTurtle<76><[U:1:900000009]><Blue>" changed role to "soldier"
+L 04/27/2026 - 23:32:28: "MedicMain<50><[U:1:900000008]><Red>" say "!add"
+L 04/27/2026 - 23:32:31: "MedicMain<50><[U:1:900000008]><Red>" say "gg"
+L 04/27/2026 - 23:32:40: "MedicMain<50><[U:1:900000008]><Red>" disconnected (reason "Disconnect by user.")
+L 04/27/2026 - 23:32:40: "MedicMain<50><[U:1:900000008]><Red>" joined team "Spectator"
+L 04/27/2026 - 23:32:49: "EngiTurtle<76><[U:1:900000009]><Blue>" spawned as "soldier"
+L 04/27/2026 - 23:33:07: "EngiTurtle<76><[U:1:900000009]><Blue>" spawned as "soldier"
+L 04/27/2026 - 23:33:24: "EngiTurtle<76><[U:1:900000009]><Blue>" disconnected (reason "Disconnect by user.")
+L 04/27/2026 - 23:33:24: "EngiTurtle<76><[U:1:900000009]><Blue>" joined team "Spectator"
+L 04/28/2026 - 00:00:00: World triggered "mge_match_aborted" (reason "map_change")

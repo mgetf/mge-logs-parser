@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MGE Log Parser</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d0d0d;color:#ccc;font-family:system-ui,-apple-system,sans-serif;min-height:100vh;padding:28px 16px}
+
+/* ── header ─────────────────────────── */
+.site-title{text-align:center;font-size:.75rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#555;margin-bottom:28px}
+.site-title span{color:#e05a00}
+
+/* ── upload zone ─────────────────────── */
+#drop{border:2px dashed #272727;border-radius:12px;padding:56px 32px;text-align:center;cursor:pointer;max-width:560px;margin:0 auto;transition:border-color .18s,background .18s}
+#drop:hover,#drop.over{border-color:#e05a00;background:#e05a000a}
+#drop .ico{font-size:2.2rem;margin-bottom:14px}
+#drop strong{color:#ddd;font-size:1rem}
+#drop p{color:#555;font-size:.85rem;margin-top:6px}
+#file{display:none}
+
+/* ── loading / error ─────────────────── */
+#loading{display:none;text-align:center;padding:36px;color:#555}
+.spin{display:inline-block;width:18px;height:18px;border:2px solid #2a2a2a;border-top-color:#e05a00;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.err{background:#1a0808;border:1px solid #7f1c1c44;border-radius:8px;padding:14px 18px;color:#f87171;max-width:560px;margin:0 auto;font-size:.9rem}
+
+/* ── results wrapper ─────────────────── */
+#results{display:none;max-width:860px;margin:0 auto}
+
+/* ── card base ───────────────────────── */
+.card{background:#161616;border-radius:10px;margin-bottom:12px}
+
+/* ── match header ────────────────────── */
+.mh{padding:16px 22px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;border-bottom:1px solid #1e1e1e}
+.mh-left{display:flex;flex-direction:column;gap:4px}
+.arena{font-size:1.05rem;font-weight:700;color:#fff}
+.mh-meta{font-size:.78rem;color:#555}
+.pill{display:inline-flex;align-items:center;gap:5px;background:#1e1e1e;border-radius:5px;padding:3px 9px;font-size:.72rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#888}
+.pill.orange{background:#e05a0015;color:#e05a00;border:1px solid #e05a0030}
+.pill.red{background:#c23b2218;color:#c23b22;border:1px solid #c23b2230}
+.pill.aborted{background:#7f1c1c18;color:#f87171;border:1px solid #f8717130}
+
+/* ── versus ──────────────────────────── */
+.versus{display:grid;grid-template-columns:1fr 56px 1fr;gap:0;margin-bottom:12px}
+.pcol{padding:18px 22px}
+.pcol.r{background:#161616;border-radius:10px 0 0 10px;border-left:3px solid #c23b22}
+.pcol.b{background:#161616;border-radius:0 10px 10px 0;border-right:3px solid #3870a0;text-align:right}
+.pname{font-size:1rem;font-weight:700;color:#fff;word-break:break-word}
+.score{font-size:2.8rem;font-weight:800;line-height:1;margin-top:4px}
+.pcol.r .score{color:#c23b22}
+.pcol.b .score{color:#3870a0}
+.won-label{font-size:.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px}
+.pcol.r .won-label{color:#c23b22}
+.pcol.b .won-label{color:#3870a0}
+.vs-mid{background:#0d0d0d;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;color:#333}
+
+/* ── stats table ─────────────────────── */
+.stats-table{width:100%;border-collapse:collapse}
+.stats-table .sh{background:#111;padding:8px 16px;font-size:.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#444;text-align:center}
+.stats-table td{padding:9px 16px;border-top:1px solid #1a1a1a;font-size:.9rem;vertical-align:middle}
+.stats-table .lv{text-align:left}
+.stats-table .rv{text-align:right}
+.stats-table .lbl{text-align:center;font-size:.68rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#444}
+.hi{color:#fff;font-weight:600}
+.lo{color:#4a4a4a}
+.neutral{color:#999}
+
+/* ── weapons ─────────────────────────── */
+.wb-wrap{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+@media(max-width:580px){.wb-wrap{grid-template-columns:1fr}}
+.wb-card{background:#161616;border-radius:10px;overflow:hidden}
+.wb-head{padding:10px 14px;background:#111;display:flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#555}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block;flex-shrink:0}
+.dot.r{background:#c23b22}.dot.b{background:#3870a0}
+.wb-table{width:100%;border-collapse:collapse;font-size:.82rem}
+.wb-table th{background:#0f0f0f;padding:6px 10px;text-align:right;font-size:.65rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:#3a3a3a}
+.wb-table th:first-child{text-align:left}
+.wb-table td{padding:7px 10px;border-top:1px solid #1a1a1a;text-align:right;color:#888}
+.wb-table td:first-child{text-align:left;color:#bbb}
+.wb-table td.k{color:#ddd;font-weight:600}
+
+/* ── ELO ─────────────────────────────── */
+.elo-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.elo-card{background:#161616;border-radius:10px;padding:13px 18px;display:flex;justify-content:space-between;align-items:center}
+.elo-left{font-size:.85rem;font-weight:600;color:#888}
+.elo-right{display:flex;align-items:center;gap:8px;font-size:.85rem}
+.elo-before{color:#444}
+.elo-arr{color:#2a2a2a}
+.elo-after{color:#ddd;font-weight:700}
+.elo-d{font-size:.75rem;font-weight:700;padding:2px 6px;border-radius:4px}
+.elo-d.pos{color:#4ade80;background:#052e1640}
+.elo-d.neg{color:#f87171;background:#4a000840}
+.elo-d.zero{color:#555;background:#1a1a1a}
+
+/* ── chat ────────────────────────────── */
+.chat-wrap{padding:10px 16px}
+.chat-msg{padding:5px 0;border-top:1px solid #1a1a1a;font-size:.83rem}
+.chat-msg:first-child{border-top:none}
+.chat-ts{color:#333;font-size:.72rem;margin-right:6px}
+.chat-scope{color:#444;font-size:.72rem;margin-right:2px}
+.chat-who{color:#e05a00;font-weight:600;margin-right:4px}
+.chat-txt{color:#aaa}
+
+/* ── reset ───────────────────────────── */
+.reset{display:block;margin:20px auto 0;background:none;border:1px solid #272727;color:#555;padding:7px 20px;border-radius:6px;cursor:pointer;font-size:.82rem;transition:border-color .15s,color .15s}
+.reset:hover{border-color:#e05a00;color:#e05a00}
+.sec{font-size:.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#3a3a3a;margin:14px 0 6px 2px}
+</style>
+</head>
+<body>
+
+<div class="site-title"><span>MGE</span> Log Parser</div>
+
+<div id="drop">
+  <div class="ico">📄</div>
+  <strong>Drop a .log file here</strong>
+  <p>or click to browse</p>
+  <input type="file" id="file" accept=".log,.txt">
+</div>
+
+<div id="loading"><span class="spin"></span>Parsing…</div>
+<div id="err-box"></div>
+<div id="results"></div>
+
+<script>
+const WEAPONS = {
+  tf_projectile_rocket:'Rocket',quake_rl:'Quake RL',
+  shotgun_soldier:'Shotgun',tf_weapon_scattergun:'Scattergun',
+  tf_weapon_pistol_scout:'Pistol',tf_weapon_bat:'Bat',
+  tf_weapon_rocketlauncher:'Rocket Launcher',
+  tf_weapon_shotgun_soldier:'Shotgun',tf_weapon_minigun:'Minigun',
+  tf_weapon_grenadelauncher:'Grenade Launcher',
+  tf_weapon_stickbomb:'Stickybomb Launcher',
+  tf_weapon_sword:'Eyelander',world:'World',
+};
+function wn(w){return WEAPONS[w]||w.replace(/^tf_(?:projectile_|weapon_)?/,'').replace(/_/g,' ').replace(/\b\w/g,c=>c.toUpperCase())}
+
+function fmtDate(iso){
+  try{const d=new Date(iso);return d.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'UTC'})}catch{return iso}
+}
+function fmtDur(s){const m=Math.floor(s/60),sec=Math.round(s%60);return`${m}m ${sec}s`}
+function fmtTs(iso){return iso.slice(11,19)}
+
+function pct(a,b){
+  if(a===null&&b===null)return['-','-'];
+  const av=a??0,bv=b??0;
+  if(av===bv)return[av+'%',bv+'%'];
+  return av>bv?['<span class="hi">'+av+'%</span>','<span class="lo">'+bv+'%</span>']:
+                ['<span class="lo">'+av+'%</span>','<span class="hi">'+bv+'%</span>'];
+}
+function cmp(a,b,hiGood=true){
+  if(a===b)return[`<span class="neutral">${a}</span>`,`<span class="neutral">${b}</span>`];
+  const w=hiGood?(a>b):(a<b);
+  return w?[`<span class="hi">${a}</span>`,`<span class="lo">${b}</span>`]:
+            [`<span class="lo">${a}</span>`,`<span class="hi">${b}</span>`];
+}
+
+function renderStats(r,b){
+  const [rk,bk]=cmp(r.stats.kills,b.stats.kills);
+  const [rd,bd]=cmp(r.stats.deaths,b.stats.deaths,false);
+  const [rda,bda]=cmp(r.stats.damageDone,b.stats.damageDone);
+  const [rdpm,bdpm]=cmp(r.stats.dpm,b.stats.dpm);
+  const [rac,bac]=pct(r.stats.accuracy,b.stats.accuracy);
+  const [ras,bas]=cmp(r.stats.airshots,b.stats.airshots);
+  const [rhs,bhs]=cmp(r.stats.headshotKills,b.stats.headshotKills);
+  const [rsf,bsf]=cmp(r.stats.shotsFired,b.stats.shotsFired);
+
+  const rows=[
+    [rk,'KILLS',bk],[rd,'DEATHS',bd],
+    [rda,'DAMAGE',bda],[rdpm,'DPM',bdpm],
+    [rac,'ACCURACY',bac],[ras,'AIRSHOTS',bas],
+  ];
+  if(r.stats.headshotKills||b.stats.headshotKills) rows.push([rhs,'HEADSHOTS',bhs]);
+  rows.push([rsf,'SHOTS FIRED',bsf]);
+
+  return`<div class="card">
+<table class="stats-table">
+<tr><th class="sh lv">RED</th><th class="sh lbl">STAT</th><th class="sh rv">BLU</th></tr>
+${rows.map(([lv,label,rv])=>`<tr><td class="lv">${lv}</td><td class="lbl">${label}</td><td class="rv">${rv}</td></tr>`).join('')}
+</table></div>`;
+}
+
+function renderWeapons(player,teamClass){
+  const wb=player.stats.weaponBreakdown;
+  const keys=Object.keys(wb);
+  if(!keys.length)return'';
+  const rows=keys.map(w=>{
+    const s=wb[w];
+    const acc=s.shotsFired>0?Math.round(s.shotsHit/s.shotsFired*100)+'%':'-';
+    return`<tr>
+<td>${wn(w)}</td>
+<td class="k">${s.kills}</td>
+<td>${s.damage||'-'}</td>
+<td>${s.shotsFired||'-'}</td>
+<td>${s.shotsHit||'-'}</td>
+<td>${acc}</td>
+</tr>`;
+  }).join('');
+  return`<div class="wb-card">
+<div class="wb-head"><span class="dot ${teamClass}"></span>${player.name}</div>
+<table class="wb-table">
+<tr><th>Weapon</th><th>K</th><th>Dmg</th><th>Fired</th><th>Hit</th><th>Acc</th></tr>
+${rows}
+</table></div>`;
+}
+
+function renderElo(players){
+  const withElo=players.filter(p=>p.elo);
+  if(!withElo.length)return'';
+  const cards=withElo.map(p=>{
+    const e=p.elo;
+    const cls=e.delta>0?'pos':e.delta<0?'neg':'zero';
+    const sign=e.delta>0?'+':'';
+    return`<div class="elo-card">
+<div class="elo-left">${p.name}</div>
+<div class="elo-right">
+  <span class="elo-before">${e.before}</span>
+  <span class="elo-arr">→</span>
+  <span class="elo-after">${e.after}</span>
+  <span class="elo-d ${cls}">${sign}${e.delta}</span>
+</div></div>`;
+  }).join('');
+  return`<div class="sec">ELO</div><div class="elo-row">${cards}</div>`;
+}
+
+function renderChat(chat,players){
+  if(!chat.length)return'';
+  const nameMap=Object.fromEntries(players.map(p=>[p.steamId,p.name]));
+  const msgs=chat.map(m=>`<div class="chat-msg">
+<span class="chat-ts">${fmtTs(m.timestamp)}</span>
+<span class="chat-scope">[${m.scope==='team'?'TEAM':'ALL'}]</span>
+<span class="chat-who">${nameMap[m.steamId]??m.steamId}:</span>
+<span class="chat-txt">${m.message.replace(/</g,'&lt;')}</span>
+</div>`).join('');
+  return`<div class="sec">CHAT</div><div class="card"><div class="chat-wrap">${msgs}</div></div>`;
+}
+
+function render(data){
+  const {meta,players,events,chat}=data;
+  const red=players.find(p=>p.team==='Red')||players[0];
+  const blu=players.find(p=>p.team==='Blue')||players[1];
+
+  const pills=[
+    `<span class="pill orange">${meta.format}</span>`,
+    `<span class="pill">${meta.gamemode.toUpperCase()}</span>`,
+    meta.fragLimit > 0 ? `<span class="pill">First to ${meta.fragLimit}</span>` : `<span class="pill">No limit</span>`,
+    meta.aborted?`<span class="pill aborted">ABORTED${meta.abortReason?' · '+meta.abortReason.replace('_',' '):''}</span>`:'',
+  ].filter(Boolean).join(' ');
+
+  const killEvents=events.filter(e=>e.type==='kill').length;
+  const dmgEvents=events.filter(e=>e.type==='damage').length;
+  const mapDisplay=meta.map.replace(/^mge_/,'').replace(/_/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+
+  let html=`
+<div class="card mh">
+  <div class="mh-left">
+    <span class="arena">${meta.arena}</span>
+    <span class="mh-meta">${mapDisplay} &nbsp;·&nbsp; ${fmtDate(meta.startedAt)} &nbsp;·&nbsp; ${fmtDur(meta.durationSeconds)} &nbsp;·&nbsp; ${killEvents} kills &nbsp;·&nbsp; ${dmgEvents} dmg events</span>
+  </div>
+  <div>${pills}</div>
+</div>`;
+
+  if(red&&blu){
+    html+=`<div class="versus">
+<div class="pcol r">
+  <div class="pname">${red.name}</div>
+  <div class="score">${red.score}</div>
+  <div class="won-label">${red.won?'WINNER':'LOSER'}</div>
+</div>
+<div class="vs-mid">VS</div>
+<div class="pcol b">
+  <div class="pname">${blu.name}</div>
+  <div class="score">${blu.score}</div>
+  <div class="won-label">${blu.won?'WINNER':'LOSER'}</div>
+</div>
+</div>`;
+    html+=renderStats(red,blu);
+  }else if(red||blu){
+    const p=red||blu;
+    html+=`<div class="card" style="padding:16px 22px"><strong>${p.name}</strong> — ${p.stats.kills}K / ${p.stats.deaths}D</div>`;
+  }
+
+  const wbHtml=[
+    red?renderWeapons(red,'r'):'',
+    blu?renderWeapons(blu,'b'):'',
+  ].filter(Boolean).join('');
+  if(wbHtml)html+=`<div class="sec">WEAPON BREAKDOWN</div><div class="wb-wrap">${wbHtml}</div>`;
+
+  html+=renderElo(players);
+  html+=renderChat(chat,players);
+  html+=`<button class="reset" onclick="reset()">← Parse another log</button>`;
+
+  document.getElementById('results').innerHTML=html;
+  document.getElementById('results').style.display='block';
+  document.getElementById('drop').style.display='none';
+}
+
+function showError(msg){
+  document.getElementById('err-box').innerHTML=`<div class="err">${msg}</div>`;
+  document.getElementById('loading').style.display='none';
+}
+
+async function parse(text){
+  document.getElementById('loading').style.display='block';
+  document.getElementById('err-box').innerHTML='';
+  document.getElementById('results').style.display='none';
+  try{
+    const res=await fetch('/parse',{method:'POST',headers:{'Content-Type':'text/plain'},body:text});
+    const json=await res.json();
+    document.getElementById('loading').style.display='none';
+    if(!res.ok){showError(json.error||`HTTP ${res.status}`);return;}
+    render(json);
+  }catch(e){
+    showError('Failed to contact the parser. Is it running?');
+  }
+}
+
+function reset(){
+  document.getElementById('results').style.display='none';
+  document.getElementById('drop').style.display='block';
+  document.getElementById('err-box').innerHTML='';
+  document.getElementById('file').value='';
+}
+
+function handleFile(file){
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>parse(e.target.result);
+  reader.readAsText(file,'utf-8');
+}
+
+const drop=document.getElementById('drop');
+const fileInput=document.getElementById('file');
+
+drop.addEventListener('click',()=>fileInput.click());
+fileInput.addEventListener('change',()=>handleFile(fileInput.files[0]));
+drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('over')});
+drop.addEventListener('dragleave',()=>drop.classList.remove('over'));
+drop.addEventListener('drop',e=>{
+  e.preventDefault();drop.classList.remove('over');
+  handleFile(e.dataTransfer.files[0]);
+});
+</script>
+</body>
+</html>

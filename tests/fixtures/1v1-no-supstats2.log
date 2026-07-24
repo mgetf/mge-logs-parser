@@ -1,0 +1,62 @@
+L 04/28/2026 - 05:12:41: World triggered "meta_data" (matchid "260428051241f6e8") (map "mge_triumph_beta7_rc1") (arena "Badlands Middle 1 [1v1 MGE]") (gamemode "mge") (fraglimit "0")
+L 04/28/2026 - 05:12:41: "SoldierBoy<83><[U:1:900000011]><Red>" changed role to "soldier"
+L 04/28/2026 - 05:12:41: "QuickScout<84><[U:1:900000012]><Blue>" changed role to "soldier"
+L 04/28/2026 - 05:12:49: "SoldierBoy<83><[U:1:900000011]><Red>" killed "QuickScout<84><[U:1:900000012]><Blue>" with "world" (attacker_position "-12983 11704 10696") (victim_position "-12607 12044 10510")
+L 04/28/2026 - 05:12:49: "QuickScout<84><[U:1:900000012]><Blue>" spawned as "soldier"
+L 04/28/2026 - 05:12:56: "SoldierBoy<83><[U:1:900000011]><Red>" killed "QuickScout<84><[U:1:900000012]><Blue>" with "quake_rl" (attacker_position "-13176 11585 10766") (victim_position "-13280 11907 10718")
+L 04/28/2026 - 05:12:56: "QuickScout<84><[U:1:900000012]><Blue>" spawned as "soldier"
+L 04/28/2026 - 05:13:03: "QuickScout<84><[U:1:900000012]><Blue>" killed "SoldierBoy<83><[U:1:900000011]><Red>" with "shotgun_soldier" (attacker_position "-13153 11133 10740") (victim_position "-12950 11764 10696")
+L 04/28/2026 - 05:13:03: "QuickScout<84><[U:1:900000012]><Blue>" triggered "revenge" against "SoldierBoy<83><[U:1:900000011]><Red>"
+L 04/28/2026 - 05:13:04: "SoldierBoy<83><[U:1:900000011]><Red>" spawned as "soldier"
+L 04/28/2026 - 05:13:10: "SoldierBoy<83><[U:1:900000011]><Red>" killed "QuickScout<84><[U:1:900000012]><Blue>" with "world" (attacker_position "-13050 10881 10966") (victim_position "-13387 11677 10706")
+L 04/28/2026 - 05:13:10: "QuickScout<84><[U:1:900000012]><Blue>" spawned as "soldier"
+L 04/28/2026 - 05:13:16: "SoldierBoy<83><[U:1:900000011]><Red>" killed "QuickScout<84><[U:1:900000012]><Blue>" with "quake_rl" (attacker_position "-13177 11099 10814") (victim_position "-13342 10703 10696")
+L 04/28/2026 - 05:13:16: "QuickScout<84><[U:1:900000012]><Blue>" spawned as "soldier"
+L 04/28/2026 - 05:13:24: "SoldierBoy<83><[U:1:900000011]><Red>" killed "QuickScout<84><[U:1:900000012]><Blue>" with "shotgun_soldier" (attacker_position "-13240 10726 10766") (victim_position "-13157 11106 10804")
+L 04/28/2026 - 05:13:24: "QuickScout<84><[U:1:900000012]><Blue>" spawned as "soldier"
+L 04/28/2026 - 05:13:30: "SoldierBoy<83><[U:1:900000011]><Red>" killed "QuickScout<84><[U:1:900000012]><Blue>" with "shotgun_soldier" (attacker_position "-13262 11311 10696") (victim_position "-13340 11082 10696")
+L 04/28/2026 - 05:13:30: "SoldierBoy<83><[U:1:900000011]><Red>" triggered "domination" against "QuickScout<84><[U:1:900000012]><Blue>"
+L 04/28/2026 - 05:13:30: "QuickScout<84><[U:1:900000012]><Blue>" spawned as "soldier"
+L 04/28/2026 - 05:13:37: "SoldierBoy<83><[U:1:900000011]><Red>" killed "QuickScout<84><[U:1:900000012]><Blue>" with "shotgun_soldier" (attacker_position "-12726 11495 10659") (victim_position "-12950 11315 10696")
+L 04/28/2026 - 05:13:37: "QuickScout<84><[U:1:900000012]><Blue>" spawned as "soldier"
+L 04/28/2026 - 05:13:45: "QuickScout<84><[U:1:900000012]><Blue>" killed "SoldierBoy<83><[U:1:900000011]><Red>" with "shotgun_soldier" (attacker_position "-12989 11811 10696") (victim_position "-13247 11561 10764")
+L 04/28/2026 - 05:13:45: "QuickScout<84><[U:1:900000012]><Blue>" triggered "revenge" against "SoldierBoy<83><[U:1:900000011]><Red>"
+L 04/28/2026 - 05:13:45: "SoldierBoy<83><[U:1:900000011]><Red>" spawned as "soldier"
+L 04/28/2026 - 05:13:51: "SoldierBoy<83><[U:1:900000011]><Red>" killed "QuickScout<84><[U:1:900000012]><Blue>" with "shotgun_soldier" (attacker_position "-13183 12134 10811") (victim_position "-13187 11918 11113")
+L 04/28/2026 - 05:13:51: "QuickScout<84><[U:1:900000012]><Blue>" spawned as "soldier"
+L 04/28/2026 - 05:13:56: "SoldierBoy<83><[U:1:900000011]><Red>" killed "QuickScout<84><[U:1:900000012]><Blue>" with "world" (attacker_position "-13106 11584 10856") (victim_position "-12963 11701 10698")
+L 04/28/2026 - 05:13:56: "QuickScout<84><[U:1:900000012]><Blue>" spawned as "soldier"
+L 04/28/2026 - 05:14:03: "SoldierBoy<83><[U:1:900000011]><Red>" killed "QuickScout<84><[U:1:900000012]><Blue>" with "quake_rl" (attacker_position "-13140 11705 10808") (victim_position "-13603 11790 10647")
+L 04/28/2026 - 05:14:03: "QuickScout<84><[U:1:900000012]><Blue>" spawned as "soldier"
+L 04/28/2026 - 05:14:11: "SoldierBoy<83><[U:1:900000011]><Red>" killed "QuickScout<84><[U:1:900000012]><Blue>" with "quake_rl" (attacker_position "-13111 12046 10812") (victim_position "-12951 11576 10696")
+L 04/28/2026 - 05:14:11: "SoldierBoy<83><[U:1:900000011]><Red>" triggered "domination" against "QuickScout<84><[U:1:900000012]><Blue>"
+L 04/28/2026 - 05:14:11: "QuickScout<84><[U:1:900000012]><Blue>" spawned as "soldier"
+L 04/28/2026 - 05:14:19: "QuickScout<84><[U:1:900000012]><Blue>" killed "SoldierBoy<83><[U:1:900000011]><Red>" with "shotgun_soldier" (attacker_position "-13513 11826 10657") (victim_position "-13167 11633 10779")
+L 04/28/2026 - 05:14:19: "QuickScout<84><[U:1:900000012]><Blue>" triggered "revenge" against "SoldierBoy<83><[U:1:900000011]><Red>"
+L 04/28/2026 - 05:14:20: "SoldierBoy<83><[U:1:900000011]><Red>" spawned as "soldier"
+L 04/28/2026 - 05:14:25: "QuickScout<84><[U:1:900000012]><Blue>" killed "SoldierBoy<83><[U:1:900000011]><Red>" with "shotgun_soldier" (attacker_position "-12898 11660 10696") (victim_position "-13197 11378 10910")
+L 04/28/2026 - 05:14:25: "SoldierBoy<83><[U:1:900000011]><Red>" spawned as "soldier"
+L 04/28/2026 - 05:14:31: "QuickScout<84><[U:1:900000012]><Blue>" killed "SoldierBoy<83><[U:1:900000011]><Red>" with "shotgun_soldier" (attacker_position "-13302 11801 10696") (victim_position "-13040 11693 11159")
+L 04/28/2026 - 05:14:31: "SoldierBoy<83><[U:1:900000011]><Red>" spawned as "soldier"
+L 04/28/2026 - 05:14:38: "SoldierBoy<83><[U:1:900000011]><Red>" killed "QuickScout<84><[U:1:900000012]><Blue>" with "shotgun_soldier" (attacker_position "-13165 12287 10696") (victim_position "-13362 11920 10696")
+L 04/28/2026 - 05:14:38: "QuickScout<84><[U:1:900000012]><Blue>" spawned as "soldier"
+L 04/28/2026 - 05:14:44: "SoldierBoy<83><[U:1:900000011]><Red>" killed "QuickScout<84><[U:1:900000012]><Blue>" with "shotgun_soldier" (attacker_position "-13117 11666 11168") (victim_position "-12925 11583 10921")
+L 04/28/2026 - 05:14:44: "QuickScout<84><[U:1:900000012]><Blue>" spawned as "soldier"
+L 04/28/2026 - 05:14:51: "QuickScout<84><[U:1:900000012]><Blue>" picked up item "tf_ammo_pack"
+L 04/28/2026 - 05:14:52: "SoldierBoy<83><[U:1:900000011]><Red>" killed "QuickScout<84><[U:1:900000012]><Blue>" with "quake_rl" (attacker_position "-13390 12258 10696") (victim_position "-13398 11930 10707")
+L 04/28/2026 - 05:14:52: "QuickScout<84><[U:1:900000012]><Blue>" spawned as "soldier"
+L 04/28/2026 - 05:14:57: "SoldierBoy<83><[U:1:900000011]><Red>" killed "QuickScout<84><[U:1:900000012]><Blue>" with "shotgun_soldier" (attacker_position "-13156 12044 10838") (victim_position "-13432 12015 10696")
+L 04/28/2026 - 05:14:57: "SoldierBoy<83><[U:1:900000011]><Red>" triggered "domination" against "QuickScout<84><[U:1:900000012]><Blue>"
+L 04/28/2026 - 05:14:57: "QuickScout<84><[U:1:900000012]><Blue>" spawned as "soldier"
+L 04/28/2026 - 05:15:06: "SoldierBoy<83><[U:1:900000011]><Red>" killed "QuickScout<84><[U:1:900000012]><Blue>" with "shotgun_soldier" (attacker_position "-13194 12085 10867") (victim_position "-13145 11739 10804")
+L 04/28/2026 - 05:15:06: "QuickScout<84><[U:1:900000012]><Blue>" spawned as "soldier"
+L 04/28/2026 - 05:15:12: "SoldierBoy<83><[U:1:900000011]><Red>" killed "QuickScout<84><[U:1:900000012]><Blue>" with "quake_rl" (attacker_position "-13090 12284 10730") (victim_position "-13125 11926 10804")
+L 04/28/2026 - 05:15:12: "QuickScout<84><[U:1:900000012]><Blue>" spawned as "soldier"
+L 04/28/2026 - 05:15:17: "SoldierBoy<83><[U:1:900000011]><Red>" killed "QuickScout<84><[U:1:900000012]><Blue>" with "quake_rl" (attacker_position "-13439 11957 10696") (victim_position "-13425 11526 10735")
+L 04/28/2026 - 05:15:17: "QuickScout<84><[U:1:900000012]><Blue>" spawned as "soldier"
+L 04/28/2026 - 05:15:23: "SoldierBoy<83><[U:1:900000011]><Red>" killed "QuickScout<84><[U:1:900000012]><Blue>" with "quake_rl" (attacker_position "-13044 12103 10727") (victim_position "-13391 12377 10711")
+L 04/28/2026 - 05:15:23: "QuickScout<84><[U:1:900000012]><Blue>" spawned as "soldier"
+L 04/28/2026 - 05:15:29: World triggered "mge_elo_delta" (player "[U:1:900000011]") (old_elo "2722") (new_elo "2722")
+L 04/28/2026 - 05:15:29: World triggered "mge_elo_delta" (player "[U:1:900000012]") (old_elo "2131") (new_elo "2131")
+L 04/28/2026 - 05:15:29: "SoldierBoy<83><[U:1:900000011]><Red>" killed "QuickScout<84><[U:1:900000012]><Blue>" with "shotgun_soldier" (attacker_position "-13305 11823 10696") (victim_position "-13138 11336 10937")
+L 04/28/2026 - 05:15:29: World triggered "mge_match_end" (winner "[U:1:900000011]") (winner_score "20") (loser_score "5")

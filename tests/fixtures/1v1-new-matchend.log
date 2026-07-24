@@ -1,0 +1,17 @@
+L 04/28/2026 - 11:00:00: World triggered "meta_data" (matchid "newmatchend00001") (map "mge_triumph_beta7_rc1") (arena "Spire [1v1 MGE]") (gamemode "mge") (fraglimit "10")
+L 04/28/2026 - 11:00:00: "GunboatsGamer<10><[U:1:900000016]><Red>" changed role to "soldier"
+L 04/28/2026 - 11:00:00: "CritSticky<11><[U:1:900000017]><Blue>" changed role to "soldier"
+L 04/28/2026 - 11:00:10: "GunboatsGamer<10><[U:1:900000016]><Red>" killed "CritSticky<11><[U:1:900000017]><Blue>" with "tf_projectile_rocket" (attacker_position "0 0 0") (victim_position "100 100 0")
+L 04/28/2026 - 11:00:20: "GunboatsGamer<10><[U:1:900000016]><Red>" killed "CritSticky<11><[U:1:900000017]><Blue>" with "tf_projectile_rocket" (attacker_position "0 0 0") (victim_position "100 100 0")
+L 04/28/2026 - 11:00:30: "CritSticky<11><[U:1:900000017]><Blue>" killed "GunboatsGamer<10><[U:1:900000016]><Red>" with "tf_projectile_rocket" (attacker_position "0 0 0") (victim_position "100 100 0")
+L 04/28/2026 - 11:00:40: "GunboatsGamer<10><[U:1:900000016]><Red>" killed "CritSticky<11><[U:1:900000017]><Blue>" with "tf_projectile_rocket" (attacker_position "0 0 0") (victim_position "100 100 0")
+L 04/28/2026 - 11:00:50: "GunboatsGamer<10><[U:1:900000016]><Red>" killed "CritSticky<11><[U:1:900000017]><Blue>" with "tf_projectile_rocket" (attacker_position "0 0 0") (victim_position "100 100 0")
+L 04/28/2026 - 11:01:00: "GunboatsGamer<10><[U:1:900000016]><Red>" killed "CritSticky<11><[U:1:900000017]><Blue>" with "tf_projectile_rocket" (attacker_position "0 0 0") (victim_position "100 100 0")
+L 04/28/2026 - 11:01:10: "CritSticky<11><[U:1:900000017]><Blue>" killed "GunboatsGamer<10><[U:1:900000016]><Red>" with "tf_projectile_rocket" (attacker_position "0 0 0") (victim_position "100 100 0")
+L 04/28/2026 - 11:01:20: "GunboatsGamer<10><[U:1:900000016]><Red>" killed "CritSticky<11><[U:1:900000017]><Blue>" with "tf_projectile_rocket" (attacker_position "0 0 0") (victim_position "100 100 0")
+L 04/28/2026 - 11:01:30: "GunboatsGamer<10><[U:1:900000016]><Red>" killed "CritSticky<11><[U:1:900000017]><Blue>" with "tf_projectile_rocket" (attacker_position "0 0 0") (victim_position "100 100 0")
+L 04/28/2026 - 11:01:40: "GunboatsGamer<10><[U:1:900000016]><Red>" killed "CritSticky<11><[U:1:900000017]><Blue>" with "tf_projectile_rocket" (attacker_position "0 0 0") (victim_position "100 100 0")
+L 04/28/2026 - 11:01:50: "GunboatsGamer<10><[U:1:900000016]><Red>" killed "CritSticky<11><[U:1:900000017]><Blue>" with "tf_projectile_rocket" (attacker_position "0 0 0") (victim_position "100 100 0")
+L 04/28/2026 - 11:02:00: World triggered "mge_elo_delta" (player "[U:1:900000016]") (old_elo "1500") (new_elo "1516")
+L 04/28/2026 - 11:02:00: World triggered "mge_elo_delta" (player "[U:1:900000017]") (old_elo "1450") (new_elo "1434")
+L 04/28/2026 - 11:02:00: World triggered "mge_match_end" (winner "[U:1:900000016]") (loser "[U:1:900000017]") (winner_score "10") (loser_score "3")

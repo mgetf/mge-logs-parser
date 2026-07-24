@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "matchId": "260427233226c477",
+    "map": "mge_triumph_beta7_rc1",
+    "arena": "Granary Pro Middle [1v1 MGE]",
+    "gamemode": "mge",
+    "fragLimit": 0,
+    "format": "1v1",
+    "startedAt": "2026-04-27T23:32:26Z",
+    "endedAt": "2026-04-28T00:00:00Z",
+    "durationSeconds": 1654,
+    "aborted": true,
+    "abortReason": "map_change"
+  },
+  "players": [
+    {
+      "steamId": "[U:1:900000008]",
+      "name": "MedicMain",
+      "team": "Red",
+      "startClass": "soldier",
+      "won": true,
+      "score": 0,
+      "elo": null,
+      "stats": {
+        "kills": 0,
+        "deaths": 0,
+        "damageDone": 0,
+        "damageReceived": 0,
+        "dpm": 0,
+        "shotsFired": 0,
+        "shotsHit": 0,
+        "accuracy": null,
+        "airshots": 0,
+        "headshotKills": 0,
+        "weaponBreakdown": {},
+        "medicStats": null
+      }
+    },
+    {
+      "steamId": "[U:1:900000009]",
+      "name": "EngiTurtle",
+      "team": "Blue",
+      "startClass": "soldier",
+      "won": false,
+      "score": 0,
+      "elo": null,
+      "stats": {
+        "kills": 0,
+        "deaths": 0,
+        "damageDone": 0,
+        "damageReceived": 0,
+        "dpm": 0,
+        "shotsFired": 0,
+        "shotsHit": 0,
+        "accuracy": null,
+        "airshots": 0,
+        "headshotKills": 0,
+        "weaponBreakdown": {},
+        "medicStats": null
+      }
+    }
+  ],
+  "events": [],
+  "chat": [
+    {
+      "timestamp": "2026-04-27T23:32:28Z",
+      "steamId": "[U:1:900000008]",
+      "scope": "all",
+      "message": "!add"
+    },
+    {
+      "timestamp": "2026-04-27T23:32:31Z",
+      "steamId": "[U:1:900000008]",
+      "scope": "all",
+      "message": "gg"
+    }
+  ]
+}

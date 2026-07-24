@@ -1,0 +1,325 @@
+{
+  "meta": {
+    "matchId": "260428051241f6e8",
+    "map": "mge_triumph_beta7_rc1",
+    "arena": "Badlands Middle 1 [1v1 MGE]",
+    "gamemode": "mge",
+    "fragLimit": 0,
+    "format": "1v1",
+    "startedAt": "2026-04-28T05:12:41Z",
+    "endedAt": "2026-04-28T05:15:29Z",
+    "durationSeconds": 168,
+    "aborted": false,
+    "abortReason": null
+  },
+  "players": [
+    {
+      "steamId": "[U:1:900000011]",
+      "name": "SoldierBoy",
+      "team": "Red",
+      "startClass": "soldier",
+      "won": true,
+      "score": 20,
+      "elo": {
+        "before": 2722,
+        "after": 2722,
+        "delta": 0
+      },
+      "stats": {
+        "kills": 20,
+        "deaths": 5,
+        "damageDone": 0,
+        "damageReceived": 0,
+        "dpm": 0,
+        "shotsFired": 0,
+        "shotsHit": 0,
+        "accuracy": null,
+        "airshots": 0,
+        "headshotKills": 0,
+        "weaponBreakdown": {
+          "world": {
+            "kills": 3,
+            "damage": 0,
+            "shotsFired": 0,
+            "shotsHit": 0
+          },
+          "quake_rl": {
+            "kills": 8,
+            "damage": 0,
+            "shotsFired": 0,
+            "shotsHit": 0
+          },
+          "shotgun_soldier": {
+            "kills": 9,
+            "damage": 0,
+            "shotsFired": 0,
+            "shotsHit": 0
+          }
+        },
+        "medicStats": null
+      }
+    },
+    {
+      "steamId": "[U:1:900000012]",
+      "name": "QuickScout",
+      "team": "Blue",
+      "startClass": "soldier",
+      "won": false,
+      "score": 5,
+      "elo": {
+        "before": 2131,
+        "after": 2131,
+        "delta": 0
+      },
+      "stats": {
+        "kills": 5,
+        "deaths": 20,
+        "damageDone": 0,
+        "damageReceived": 0,
+        "dpm": 0,
+        "shotsFired": 0,
+        "shotsHit": 0,
+        "accuracy": null,
+        "airshots": 0,
+        "headshotKills": 0,
+        "weaponBreakdown": {
+          "shotgun_soldier": {
+            "kills": 5,
+            "damage": 0,
+            "shotsFired": 0,
+            "shotsHit": 0
+          }
+        },
+        "medicStats": null
+      }
+    }
+  ],
+  "events": [
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:12:49Z",
+      "attackerSteamId": "[U:1:900000011]",
+      "victimSteamId": "[U:1:900000012]",
+      "weapon": "world",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:12:56Z",
+      "attackerSteamId": "[U:1:900000011]",
+      "victimSteamId": "[U:1:900000012]",
+      "weapon": "quake_rl",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:13:03Z",
+      "attackerSteamId": "[U:1:900000012]",
+      "victimSteamId": "[U:1:900000011]",
+      "weapon": "shotgun_soldier",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:13:10Z",
+      "attackerSteamId": "[U:1:900000011]",
+      "victimSteamId": "[U:1:900000012]",
+      "weapon": "world",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:13:16Z",
+      "attackerSteamId": "[U:1:900000011]",
+      "victimSteamId": "[U:1:900000012]",
+      "weapon": "quake_rl",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:13:24Z",
+      "attackerSteamId": "[U:1:900000011]",
+      "victimSteamId": "[U:1:900000012]",
+      "weapon": "shotgun_soldier",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:13:30Z",
+      "attackerSteamId": "[U:1:900000011]",
+      "victimSteamId": "[U:1:900000012]",
+      "weapon": "shotgun_soldier",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:13:37Z",
+      "attackerSteamId": "[U:1:900000011]",
+      "victimSteamId": "[U:1:900000012]",
+      "weapon": "shotgun_soldier",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:13:45Z",
+      "attackerSteamId": "[U:1:900000012]",
+      "victimSteamId": "[U:1:900000011]",
+      "weapon": "shotgun_soldier",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:13:51Z",
+      "attackerSteamId": "[U:1:900000011]",
+      "victimSteamId": "[U:1:900000012]",
+      "weapon": "shotgun_soldier",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:13:56Z",
+      "attackerSteamId": "[U:1:900000011]",
+      "victimSteamId": "[U:1:900000012]",
+      "weapon": "world",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:14:03Z",
+      "attackerSteamId": "[U:1:900000011]",
+      "victimSteamId": "[U:1:900000012]",
+      "weapon": "quake_rl",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:14:11Z",
+      "attackerSteamId": "[U:1:900000011]",
+      "victimSteamId": "[U:1:900000012]",
+      "weapon": "quake_rl",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:14:19Z",
+      "attackerSteamId": "[U:1:900000012]",
+      "victimSteamId": "[U:1:900000011]",
+      "weapon": "shotgun_soldier",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:14:25Z",
+      "attackerSteamId": "[U:1:900000012]",
+      "victimSteamId": "[U:1:900000011]",
+      "weapon": "shotgun_soldier",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:14:31Z",
+      "attackerSteamId": "[U:1:900000012]",
+      "victimSteamId": "[U:1:900000011]",
+      "weapon": "shotgun_soldier",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:14:38Z",
+      "attackerSteamId": "[U:1:900000011]",
+      "victimSteamId": "[U:1:900000012]",
+      "weapon": "shotgun_soldier",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:14:44Z",
+      "attackerSteamId": "[U:1:900000011]",
+      "victimSteamId": "[U:1:900000012]",
+      "weapon": "shotgun_soldier",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:14:52Z",
+      "attackerSteamId": "[U:1:900000011]",
+      "victimSteamId": "[U:1:900000012]",
+      "weapon": "quake_rl",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:14:57Z",
+      "attackerSteamId": "[U:1:900000011]",
+      "victimSteamId": "[U:1:900000012]",
+      "weapon": "shotgun_soldier",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:15:06Z",
+      "attackerSteamId": "[U:1:900000011]",
+      "victimSteamId": "[U:1:900000012]",
+      "weapon": "shotgun_soldier",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:15:12Z",
+      "attackerSteamId": "[U:1:900000011]",
+      "victimSteamId": "[U:1:900000012]",
+      "weapon": "quake_rl",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:15:17Z",
+      "attackerSteamId": "[U:1:900000011]",
+      "victimSteamId": "[U:1:900000012]",
+      "weapon": "quake_rl",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:15:23Z",
+      "attackerSteamId": "[U:1:900000011]",
+      "victimSteamId": "[U:1:900000012]",
+      "weapon": "quake_rl",
+      "headshot": false,
+      "airshot": false
+    },
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T05:15:29Z",
+      "attackerSteamId": "[U:1:900000011]",
+      "victimSteamId": "[U:1:900000012]",
+      "weapon": "shotgun_soldier",
+      "headshot": false,
+      "airshot": false
+    }
+  ],
+  "chat": []
+}

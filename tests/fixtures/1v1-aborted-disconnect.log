@@ -1,0 +1,6 @@
+L 04/28/2026 - 10:00:00: World triggered "meta_data" (matchid "testdisconnect001") (map "mge_triumph_beta7_rc1") (arena "Badlands Middle 1 [1v1 MGE]") (gamemode "mge") (fraglimit "20")
+L 04/28/2026 - 10:00:00: "MGERegular<1><[U:1:900000014]><Red>" changed role to "soldier"
+L 04/28/2026 - 10:00:00: "PocketMain<2><[U:1:900000015]><Blue>" changed role to "soldier"
+L 04/28/2026 - 10:00:05: "MGERegular<1><[U:1:900000014]><Red>" killed "PocketMain<2><[U:1:900000015]><Blue>" with "tf_projectile_rocket" (attacker_position "0 0 0") (victim_position "100 100 0")
+L 04/28/2026 - 10:00:10: "PocketMain<2><[U:1:900000015]><Blue>" disconnected (reason "Disconnect by user.")
+L 04/28/2026 - 10:00:10: World triggered "mge_match_aborted" (reason "player_disconnect")

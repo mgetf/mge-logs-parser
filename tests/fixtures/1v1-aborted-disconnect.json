@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "matchId": "testdisconnect001",
+    "map": "mge_triumph_beta7_rc1",
+    "arena": "Badlands Middle 1 [1v1 MGE]",
+    "gamemode": "mge",
+    "fragLimit": 20,
+    "format": "1v1",
+    "startedAt": "2026-04-28T10:00:00Z",
+    "endedAt": "2026-04-28T10:00:10Z",
+    "durationSeconds": 10,
+    "aborted": true,
+    "abortReason": "player_disconnect"
+  },
+  "players": [
+    {
+      "steamId": "[U:1:900000014]",
+      "name": "MGERegular",
+      "team": "Red",
+      "startClass": "soldier",
+      "won": true,
+      "score": 1,
+      "elo": null,
+      "stats": {
+        "kills": 1,
+        "deaths": 0,
+        "damageDone": 0,
+        "damageReceived": 0,
+        "dpm": 0,
+        "shotsFired": 0,
+        "shotsHit": 0,
+        "accuracy": null,
+        "airshots": 0,
+        "headshotKills": 0,
+        "weaponBreakdown": {
+          "tf_projectile_rocket": {
+            "kills": 1,
+            "damage": 0,
+            "shotsFired": 0,
+            "shotsHit": 0
+          }
+        },
+        "medicStats": null
+      }
+    },
+    {
+      "steamId": "[U:1:900000015]",
+      "name": "PocketMain",
+      "team": "Blue",
+      "startClass": "soldier",
+      "won": false,
+      "score": 0,
+      "elo": null,
+      "stats": {
+        "kills": 0,
+        "deaths": 1,
+        "damageDone": 0,
+        "damageReceived": 0,
+        "dpm": 0,
+        "shotsFired": 0,
+        "shotsHit": 0,
+        "accuracy": null,
+        "airshots": 0,
+        "headshotKills": 0,
+        "weaponBreakdown": {},
+        "medicStats": null
+      }
+    }
+  ],
+  "events": [
+    {
+      "type": "kill",
+      "timestamp": "2026-04-28T10:00:05Z",
+      "attackerSteamId": "[U:1:900000014]",
+      "victimSteamId": "[U:1:900000015]",
+      "weapon": "tf_projectile_rocket",
+      "headshot": false,
+      "airshot": false
+    }
+  ],
+  "chat": []
+}
