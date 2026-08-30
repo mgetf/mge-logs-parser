@@ -267,13 +267,13 @@ function render(data){
 <div class="pcol r">
   <div class="pname">${red.name}</div>
   <div class="score">${red.score}</div>
-  <div class="won-label">${red.won?'WINNER':'LOSER'}</div>
+  <div class="won-label">${meta.aborted ? '' : (red.won?'WINNER':'LOSER')}</div>
 </div>
 <div class="vs-mid">VS</div>
 <div class="pcol b">
   <div class="pname">${blu.name}</div>
   <div class="score">${blu.score}</div>
-  <div class="won-label">${blu.won?'WINNER':'LOSER'}</div>
+  <div class="won-label">${meta.aborted ? '' : (blu.won?'WINNER':'LOSER')}</div>
 </div>
 </div>`;
     html+=renderStats(red,blu);

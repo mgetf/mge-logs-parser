@@ -303,6 +303,7 @@ describe("parse", () => {
     it("both players have score=0 with no elo", () => {
       for (const p of actual.players) {
         expect(p.score).toBe(0);
+        expect(p.won).toBe(false);
         expect(p.elo).toBeNull();
       }
     });
@@ -357,6 +358,13 @@ describe("parse", () => {
 
     it("no elo for either player", () => {
       for (const p of actual.players) expect(p.elo).toBeNull();
+    });
+
+    it("does not infer a winner from kills", () => {
+      for (const p of actual.players) {
+        expect(p.won).toBe(false);
+        expect(p.score).toBe(0);
+      }
     });
   });
 
@@ -478,6 +486,22 @@ describe("parse", () => {
       const result = parse(log);
       expect(result.meta.fragLimit).toBe(0);
       expect(Number.isNaN(result.meta.fragLimit)).toBe(false);
+    });
+
+    it("abort line scores are applied without declaring a winner", () => {
+      const log =
+        'L 04/28/2026 - 05:12:41: World triggered "meta_data" (matchid "abort15") (map "m") (arena "a") (gamemode "mge") (fraglimit "20")\n' +
+        'L 04/28/2026 - 05:12:41: "Alpha<1><[U:1:1]><Red>" changed role to "soldier"\n' +
+        'L 04/28/2026 - 05:12:41: "Beta<2><[U:1:2]><Blue>" changed role to "soldier"\n' +
+        'L 04/28/2026 - 05:12:50: World triggered "mge_match_aborted" (reason "player_disconnect") (red_score "15") (blu_score "5")\n';
+      const result = parse(log);
+      expect(result.meta.aborted).toBe(true);
+      const red = result.players.find((p) => p.team === "Red");
+      const blu = result.players.find((p) => p.team === "Blue");
+      expect(red?.won).toBe(false);
+      expect(blu?.won).toBe(false);
+      expect(red?.score).toBe(15);
+      expect(blu?.score).toBe(5);
     });
   });
 });

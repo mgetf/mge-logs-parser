@@ -18,8 +18,8 @@
       "name": "MGERegular",
       "team": "Red",
       "startClass": "soldier",
-      "won": true,
-      "score": 1,
+      "won": false,
+      "score": 0,
       "elo": null,
       "stats": {
         "kills": 1,

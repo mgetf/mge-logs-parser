@@ -76,6 +76,8 @@ export function parse(logText: string): ParsedMatch {
   let fragLimit = 0;
   let aborted = false;
   let abortReason: MatchMeta["abortReason"] = null;
+  let abortRedScore: number | null = null;
+  let abortBluScore: number | null = null;
 
   const playerMap = new Map<string, PlayerRecord>();
   const currentClass = new Map<string, string>();
@@ -157,6 +159,10 @@ export function parse(logText: string): ParsedMatch {
       endedAt = ts;
       const kv = extractKVs(msg);
       abortReason = (kv["reason"] ?? null) as MatchMeta["abortReason"];
+      if (kv["red_score"] !== undefined && kv["blu_score"] !== undefined) {
+        abortRedScore = parseInt(kv["red_score"], 10);
+        abortBluScore = parseInt(kv["blu_score"], 10);
+      }
       continue;
     }
 
@@ -287,19 +293,11 @@ export function parse(logText: string): ParsedMatch {
   const format = players.length <= 2 ? "1v1" : "2v2";
 
   if (aborted) {
-    if (format === "2v2" && players.length === 4) {
-      const red = players.filter((p) => p.team === "Red");
-      const blue = players.filter((p) => p.team === "Blue");
-      const redKills = red.reduce((sum, p) => sum + p.stats.kills, 0);
-      const blueKills = blue.reduce((sum, p) => sum + p.stats.kills, 0);
-      const winners = redKills >= blueKills ? red : blue;
-      const losers = redKills >= blueKills ? blue : red;
-      for (const p of winners) { p.won = true; p.score = p.stats.kills; }
-      for (const p of losers) { p.score = p.stats.kills; }
-    } else {
-      const sorted = [...players].sort((a, b) => b.stats.kills - a.stats.kills);
-      if (sorted.length > 0) sorted[0]!.won = true;
-      for (const p of players) { p.score = p.stats.kills; }
+    for (const p of players) {
+      p.won = false;
+      if (abortRedScore !== null && abortBluScore !== null) {
+        p.score = p.team === "Red" ? abortRedScore : abortBluScore;
+      }
     }
   }
 
