@@ -8,17 +8,48 @@ import type {
   ChatMessage,
   WeaponStats,
   Gamemode,
+  Team,
 } from "./types.ts";
 
 const LINE_RE = /^L (\d{2})\/(\d{2})\/(\d{4}) - (\d{2}):(\d{2}):(\d{2}): (.+)$/;
 const KV_RE = /\((\w+)\s+"([^"]*)"\)/g;
-const ROLE_RE = /^"([^<]*)<\d+><(\[U:1:\d+\])><(Red|Blue)>" changed role to "([^"]+)"/;
-const KILL_RE = /^"[^<]*<\d+><(\[U:1:\d+\])><(?:Red|Blue)>" killed "[^<]*<\d+><(\[U:1:\d+\])><(?:Red|Blue)>" with "([^"]+)"/;
-const DAMAGE_RE = /^"[^<]*<\d+><(\[U:1:\d+\])><(?:Red|Blue)>" triggered "damage" against "[^<]*<\d+><(\[U:1:\d+\])><(?:Red|Blue)>"/;
-const SHOT_FIRED_RE = /^"[^<]*<\d+><(\[U:1:\d+\])><(?:Red|Blue)>" triggered "shot_fired"/;
-const SHOT_HIT_RE = /^"[^<]*<\d+><(\[U:1:\d+\])><(?:Red|Blue)>" triggered "shot_hit"/;
-const SPAWN_RE = /^"[^<]*<\d+><(\[U:1:\d+\])><(?:Red|Blue)>" spawned as "([^"]+)"/;
-const SAY_RE = /^"[^<]*<\d+><(\[U:1:\d+\])><(?:Red|Blue)>" (say|say_team) "(.*)"/;
+const PLAYER_SUFFIX_RE = /<(\d+)><(\[U:1:\d+\])><(Red|Blue)>"/g;
+
+const KILLED_MID = " killed ";
+const DAMAGE_MID = ' triggered "damage" against ';
+const SHOT_FIRED_MID = ' triggered "shot_fired"';
+const SHOT_HIT_MID = ' triggered "shot_hit"';
+
+type LogPlayer = {
+  name: string;
+  steamId: string;
+  team: Team;
+  end: number;
+};
+
+function parsePlayerAt(msg: string, start: number): LogPlayer | null {
+  if (start < 0 || start >= msg.length || msg[start] !== '"') return null;
+
+  const bodyStart = start + 1;
+  const suffixRe = new RegExp(PLAYER_SUFFIX_RE.source, "g");
+  suffixRe.lastIndex = bodyStart;
+
+  let m: RegExpExecArray | null;
+  while ((m = suffixRe.exec(msg)) !== null) {
+    const tokenEnd = m.index + m[0].length;
+    const next = msg[tokenEnd];
+    if (next === undefined || next === " ") {
+      return {
+        name: msg.slice(bodyStart, m.index),
+        steamId: m[2]!,
+        team: m[3] as Team,
+        end: tokenEnd,
+      };
+    }
+  }
+
+  return null;
+}
 
 function makeTs(mm: string, dd: string, yyyy: string, hh: string, min: string, ss: string): string {
   return `${yyyy}-${mm}-${dd}T${hh}:${min}:${ss}Z`;
@@ -62,6 +93,10 @@ function zeroStats(): PlayerStats {
   };
 }
 
+function oppositeTeam(team: Team): Team {
+  return team === "Red" ? "Blue" : "Red";
+}
+
 export function parse(logText: string): ParsedMatch {
   const lines = logText.replace(/\r\n/g, "\n").split("\n");
 
@@ -83,6 +118,42 @@ export function parse(logText: string): ParsedMatch {
   const currentClass = new Map<string, string>();
   const events: (KillEvent | DamageEvent)[] = [];
   const chat: ChatMessage[] = [];
+
+  function ensurePlayer(p: LogPlayer, startClass = "unknown"): PlayerRecord {
+    let rec = playerMap.get(p.steamId);
+    if (!rec) {
+      rec = {
+        steamId: p.steamId,
+        name: p.name,
+        team: p.team,
+        startClass,
+        won: false,
+        score: 0,
+        elo: null,
+        stats: zeroStats(),
+      };
+      playerMap.set(p.steamId, rec);
+    }
+    return rec;
+  }
+
+  function ensureStub(steamId: string, team: Team): PlayerRecord {
+    let rec = playerMap.get(steamId);
+    if (!rec) {
+      rec = {
+        steamId,
+        name: steamId,
+        team,
+        startClass: currentClass.get(steamId) ?? "unknown",
+        won: false,
+        score: 0,
+        elo: null,
+        stats: zeroStats(),
+      };
+      playerMap.set(steamId, rec);
+    }
+    return rec;
+  }
 
   for (const line of lines) {
     const lm = LINE_RE.exec(line);
@@ -114,6 +185,16 @@ export function parse(logText: string): ParsedMatch {
         const loserId = kv["loser"];
         const winScore = parseInt(kv["winner_score"] ?? "0", 10);
         const loseScore = parseInt(kv["loser_score"] ?? "0", 10);
+
+        if (!playerMap.has(winnerId)) {
+          const loser = loserId ? playerMap.get(loserId) : undefined;
+          ensureStub(winnerId, loser ? oppositeTeam(loser.team) : "Blue");
+        }
+        if (loserId && !playerMap.has(loserId)) {
+          const winner = playerMap.get(winnerId);
+          ensureStub(loserId, winner ? oppositeTeam(winner.team) : "Red");
+        }
+
         for (const [id, p] of playerMap) {
           if (id === winnerId) {
             p.won = true;
@@ -166,112 +247,120 @@ export function parse(logText: string): ParsedMatch {
       continue;
     }
 
-    const rm = ROLE_RE.exec(msg);
-    if (rm) {
-      const [, rawName, steamId, team, startClass] = rm as unknown as [string, string, string, string, string];
-      const name = rawName.replace(/"$/, "");
-      if (!playerMap.has(steamId)) {
-        playerMap.set(steamId, {
-          steamId,
-          name,
-          team: team as "Red" | "Blue",
-          startClass,
-          won: false,
-          score: 0,
-          elo: null,
-          stats: zeroStats(),
+    const actor = parsePlayerAt(msg, 0);
+    if (!actor) continue;
+
+    const rest = msg.slice(actor.end);
+
+    const roleM = /^ changed role to "([^"]+)"/.exec(rest);
+    if (roleM) {
+      const rec = ensurePlayer(actor, roleM[1]!);
+      rec.name = actor.name;
+      rec.team = actor.team;
+      rec.startClass = roleM[1]!;
+      continue;
+    }
+
+    if (rest.startsWith(KILLED_MID)) {
+      const victim = parsePlayerAt(msg, actor.end + KILLED_MID.length);
+      if (victim) {
+        const weaponM = /^ with "([^"]+)"/.exec(msg.slice(victim.end));
+        if (weaponM) {
+          const attackerSteamId = actor.steamId;
+          const victimSteamId = victim.steamId;
+          const weapon = weaponM[1]!;
+          const kv = extractKVs(msg);
+          const headshot = kv["customkill"] === "headshot";
+          const airshot = kv["airshot"] === "1";
+
+          events.push({
+            type: "kill",
+            timestamp: ts,
+            attackerSteamId,
+            victimSteamId,
+            weapon,
+            headshot,
+            airshot,
+          });
+
+          const attacker = ensurePlayer(actor, currentClass.get(attackerSteamId) ?? "unknown");
+          attacker.stats.kills++;
+          if (headshot) attacker.stats.headshotKills++;
+          ensureWeapon(attacker.stats, weapon).kills++;
+
+          const victimRec = ensurePlayer(victim, currentClass.get(victimSteamId) ?? "unknown");
+          victimRec.stats.deaths++;
+        }
+      }
+      continue;
+    }
+
+    if (rest.startsWith(DAMAGE_MID)) {
+      const victim = parsePlayerAt(msg, actor.end + DAMAGE_MID.length);
+      if (victim) {
+        const kv = extractKVs(msg);
+        const damage = parseInt(kv["damage"] ?? "0", 10);
+        const realDamage = parseInt(kv["realdamage"] ?? "0", 10);
+        const weapon = kv["weapon"] ?? "unknown";
+        const headshot = kv["headshot"] === "1";
+        const airshot = kv["airshot"] === "1";
+
+        events.push({
+          type: "damage",
+          timestamp: ts,
+          attackerSteamId: actor.steamId,
+          victimSteamId: victim.steamId,
+          damage,
+          realDamage,
+          weapon,
+          headshot,
+          airshot,
         });
-      }
-      continue;
-    }
 
-    const km = KILL_RE.exec(msg);
-    if (km) {
-      const [, attackerSteamId, victimSteamId, weapon] = km as unknown as [string, string, string, string];
-      const kv = extractKVs(msg);
-      const headshot = kv["customkill"] === "headshot";
-      const airshot = kv["airshot"] === "1";
-
-      events.push({ type: "kill", timestamp: ts, attackerSteamId, victimSteamId, weapon, headshot, airshot });
-
-      const attacker = playerMap.get(attackerSteamId);
-      if (attacker) {
-        attacker.stats.kills++;
-        if (headshot) attacker.stats.headshotKills++;
-        ensureWeapon(attacker.stats, weapon).kills++;
-      }
-      const victim = playerMap.get(victimSteamId);
-      if (victim) victim.stats.deaths++;
-      continue;
-    }
-
-    const dm = DAMAGE_RE.exec(msg);
-    if (dm) {
-      const [, attackerSteamId, victimSteamId] = dm as unknown as [string, string, string];
-      const kv = extractKVs(msg);
-      const damage = parseInt(kv["damage"] ?? "0", 10);
-      const realDamage = parseInt(kv["realdamage"] ?? "0", 10);
-      const weapon = kv["weapon"] ?? "unknown";
-      const headshot = kv["headshot"] === "1";
-      const airshot = kv["airshot"] === "1";
-
-      events.push({ type: "damage", timestamp: ts, attackerSteamId, victimSteamId, damage, realDamage, weapon, headshot, airshot });
-
-      const attacker = playerMap.get(attackerSteamId);
-      if (attacker) {
+        const attacker = ensurePlayer(actor, currentClass.get(actor.steamId) ?? "unknown");
         attacker.stats.damageDone += damage;
         if (airshot) attacker.stats.airshots++;
         const wb = ensureWeapon(attacker.stats, weapon);
         wb.damage += damage;
+
+        const victimRec = ensurePlayer(victim, currentClass.get(victim.steamId) ?? "unknown");
+        victimRec.stats.damageReceived += damage;
       }
-      const victim2 = playerMap.get(victimSteamId);
-      if (victim2) victim2.stats.damageReceived += damage;
       continue;
     }
 
-    const sfm = SHOT_FIRED_RE.exec(msg);
-    if (sfm) {
-      const [, steamId] = sfm as unknown as [string, string];
+    if (rest.startsWith(SHOT_FIRED_MID)) {
       const kv = extractKVs(msg);
       const weapon = kv["weapon"] ?? "unknown";
-      const p = playerMap.get(steamId);
-      if (p) {
-        p.stats.shotsFired++;
-        ensureWeapon(p.stats, weapon).shotsFired++;
-      }
+      const p = ensurePlayer(actor, currentClass.get(actor.steamId) ?? "unknown");
+      p.stats.shotsFired++;
+      ensureWeapon(p.stats, weapon).shotsFired++;
       continue;
     }
 
-    const shm = SHOT_HIT_RE.exec(msg);
-    if (shm) {
-      const [, steamId] = shm as unknown as [string, string];
+    if (rest.startsWith(SHOT_HIT_MID)) {
       const kv = extractKVs(msg);
       const weapon = kv["weapon"] ?? "unknown";
-      const p = playerMap.get(steamId);
-      if (p) {
-        p.stats.shotsHit++;
-        ensureWeapon(p.stats, weapon).shotsHit++;
-      }
+      const p = ensurePlayer(actor, currentClass.get(actor.steamId) ?? "unknown");
+      p.stats.shotsHit++;
+      ensureWeapon(p.stats, weapon).shotsHit++;
       continue;
     }
 
-    const spm = SPAWN_RE.exec(msg);
-    if (spm) {
-      const [, steamId, cls] = spm as unknown as [string, string, string];
-      currentClass.set(steamId, cls);
+    const spawnM = /^ spawned as "([^"]+)"/.exec(rest);
+    if (spawnM) {
+      currentClass.set(actor.steamId, spawnM[1]!);
       continue;
     }
 
-    const saym = SAY_RE.exec(msg);
-    if (saym) {
-      const [, steamId, verb, message] = saym as unknown as [string, string, string, string];
+    const sayM = /^ (say_team|say) "(.*)"/.exec(rest);
+    if (sayM) {
       chat.push({
         timestamp: ts,
-        steamId,
-        scope: verb === "say_team" ? "team" : "all",
-        message,
+        steamId: actor.steamId,
+        scope: sayM[1] === "say_team" ? "team" : "all",
+        message: sayM[2]!,
       });
-      continue;
     }
   }
 
