@@ -504,4 +504,77 @@ describe("parse", () => {
       expect(blu?.score).toBe(5);
     });
   });
+
+  describe("hostile player names", () => {
+    function matchLog(redName: string, bluName: string, extraLines: string[] = []): string {
+      const red = `"${redName}<1><[U:1:1]><Red>"`;
+      const blu = `"${bluName}<2><[U:1:2]><Blue>"`;
+      return (
+        [
+          'L 04/28/2026 - 05:12:41: World triggered "meta_data" (matchid "hostile") (map "m") (arena "a") (gamemode "mge") (fraglimit "20")',
+          `L 04/28/2026 - 05:12:41: ${red} changed role to "soldier"`,
+          `L 04/28/2026 - 05:12:41: ${blu} changed role to "soldier"`,
+          ...extraLines,
+          'L 04/28/2026 - 05:12:51: World triggered "mge_match_end" (winner "[U:1:2]") (winner_score "20") (loser "[U:1:1]") (loser_score "15")',
+        ].join("\n") + "\n"
+      );
+    }
+
+    it("parses < blank > as a real steam name", () => {
+      const log = matchLog("amiguil", "< blank >", [
+        'L 04/28/2026 - 05:12:45: "< blank ><2><[U:1:2]><Blue>" killed "amiguil<1><[U:1:1]><Red>" with "shotgun_soldier"',
+        'L 04/28/2026 - 05:12:46: "amiguil<1><[U:1:1]><Red>" triggered "damage" against "< blank ><2><[U:1:2]><Blue>" (damage "101") (weapon "tf_projectile_rocket")',
+        'L 04/28/2026 - 05:12:47: "< blank ><2><[U:1:2]><Blue>" triggered "shot_fired" (weapon "quake_rl")',
+        'L 04/28/2026 - 05:12:47: "< blank ><2><[U:1:2]><Blue>" triggered "shot_hit" (weapon "quake_rl")',
+        'L 04/28/2026 - 05:12:48: "< blank ><2><[U:1:2]><Blue>" say "gg"',
+      ]);
+      const result = parse(log);
+      expect(result.players).toHaveLength(2);
+
+      const blu = result.players.find((p) => p.steamId === "[U:1:2]");
+      expect(blu?.name).toBe("< blank >");
+      expect(blu?.won).toBe(true);
+      expect(blu?.score).toBe(20);
+      expect(blu?.stats.kills).toBe(1);
+      expect(blu?.stats.shotsFired).toBe(1);
+      expect(blu?.stats.shotsHit).toBe(1);
+
+      const red = result.players.find((p) => p.steamId === "[U:1:1]");
+      expect(red?.name).toBe("amiguil");
+      expect(red?.won).toBe(false);
+      expect(red?.score).toBe(15);
+      expect(red?.stats.deaths).toBe(1);
+      expect(red?.stats.damageDone).toBe(101);
+
+      expect(result.events.filter((e) => e.type === "kill")).toHaveLength(1);
+      expect(result.chat[0]?.message).toBe("gg");
+    });
+
+    it("parses names with extra angle brackets", () => {
+      const result = parse(matchLog("foo<bar>", ">>>baz<<<"));
+      expect(result.players.find((p) => p.steamId === "[U:1:1]")?.name).toBe("foo<bar>");
+      expect(result.players.find((p) => p.steamId === "[U:1:2]")?.name).toBe(">>>baz<<<");
+    });
+
+    it("parses names that contain a quote", () => {
+      const result = parse(matchLog('foo"bar', "normal"));
+      expect(result.players.find((p) => p.steamId === "[U:1:1]")?.name).toBe('foo"bar');
+    });
+
+    it("parses empty names", () => {
+      const result = parse(matchLog("", "x"));
+      expect(result.players.find((p) => p.steamId === "[U:1:1]")?.name).toBe("");
+    });
+
+    it("parses names that embed a fake player suffix", () => {
+      const fake = "<9><[U:1:999]><Red>";
+      const log = matchLog(`x${fake}y`, "z", [
+        `L 04/28/2026 - 05:12:45: "x${fake}y<1><[U:1:1]><Red>" say "hi"`,
+      ]);
+      const result = parse(log);
+      expect(result.players.find((p) => p.steamId === "[U:1:1]")?.name).toBe(`x${fake}y`);
+      expect(result.chat[0]?.steamId).toBe("[U:1:1]");
+      expect(result.chat[0]?.message).toBe("hi");
+    });
+  });
 });
