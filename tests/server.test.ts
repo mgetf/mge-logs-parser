@@ -93,3 +93,68 @@ describe("HTTP server", () => {
     });
   });
 });
+
+describe("HTTP server under concurrent load", () => {
+  // Uses the real Tinypool worker pool (no customRunner), unlike the suite
+  // above, to catch cross-request contamination bugs that only show up when
+  // multiple worker threads run in parallel against shared route state.
+  const app = buildApp();
+
+  afterAll(async () => {
+    await app.close();
+  });
+
+  const fixtureNames = [
+    "1v1-soldier",
+    "1v1-no-supstats2",
+    "1v1-new-matchend",
+    "1v1-aborted-disconnect",
+    "1v1-aborted-map-change",
+  ];
+
+  it("resolves each of many parallel /parse requests with its own result", async () => {
+    // Fire several rounds of every fixture concurrently so requests interleave
+    // across worker threads, not just run one-at-a-time.
+    const rounds = 4;
+    const requests = Array.from({ length: rounds }, () => fixtureNames).flat();
+
+    const responses = await Promise.all(
+      requests.map(async (name) => {
+        const logText = readFileSync(fixture(`${name}.log`), "utf8");
+        const res = await app.inject({
+          method: "POST",
+          url: "/parse",
+          headers: { "content-type": "text/plain" },
+          body: logText,
+        });
+        return { name, res };
+      })
+    );
+
+    for (const { name, res } of responses) {
+      const expected = JSON.parse(readFileSync(fixture(`${name}.json`), "utf8")) as ParsedMatch;
+      expect(res.statusCode).toBe(200);
+      expect(res.json()).toEqual(expected);
+    }
+  });
+
+  it("keeps /health responsive while the pool is busy", async () => {
+    const logText = readFileSync(fixture("1v1-soldier.log"), "utf8");
+    const parseRequests = Promise.all(
+      Array.from({ length: 8 }, () =>
+        app.inject({
+          method: "POST",
+          url: "/parse",
+          headers: { "content-type": "text/plain" },
+          body: logText,
+        })
+      )
+    );
+
+    const health = await app.inject({ method: "GET", url: "/health" });
+    expect(health.statusCode).toBe(200);
+    expect(health.json<{ ok: boolean }>().ok).toBe(true);
+
+    await parseRequests;
+  });
+});
